@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "71af76a9-f00d-4ddd-9575-c3404e733372",
+		"name": "Testowe Zadanie Rekrutacyjne - Java Developer Nowe Kolory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24778089"
+	},
+	"item": [
+		{
+			"name": "GetMovie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an object\",function(){",
+							"   pm.expect(jsonData).to.be.an('object');",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Harry Potter and the Deathly Hallows: Part 2\");",
+							"    pm.expect(jsonData.plot).to.eql(\"Harry, Ron, and Hermione search for Voldemort's remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.\");",
+							"    pm.expect(jsonData.genre).to.eql(\"Adventure, Family, Fantasy\");",
+							"    pm.expect(jsonData.director).to.eql(\"David Yates\");",
+							"    pm.expect(jsonData.posterUrl).to.eql(\"https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWIxLTk0N2UtN2ZlYTdkN2IzNDNlXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/movies/search?title=Harry Potter",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Harry Potter"
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "GetEmptyMovie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an object\",function(){",
+							"   pm.expect(jsonData).to.be.an('object');",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(jsonData.Response).to.eql(\"False\");",
+							"    pm.expect(jsonData.Error).to.contain(\"Movie not found for the title:\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/movies/search?title=...",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "..."
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "SendNoValue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an object\",function(){",
+							"   pm.expect(jsonData).to.be.an('object');",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(jsonData.Response).to.eql(\"False\");",
+							"    pm.expect(jsonData.Error).to.eql(\"Validation error. Check request parameters.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/movies/search",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"search"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "GetEmptyFavourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an array\",function(){",
+							"   pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Response should return 0 items\", function () {",
+							"    pm.expect(jsonData.length).is.eql(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/movies/favorites",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"favorites"
+					]
+				},
+				"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "AddFirstMovieToFavourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an object\",function(){",
+							"   pm.expect(jsonData).to.be.an('object');",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Harry Potter and the Deathly Hallows: Part 2\");",
+							"    pm.expect(jsonData.plot).to.eql(\"Harry, Ron, and Hermione search for Voldemort's remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.\");",
+							"    pm.expect(jsonData.genre).to.eql(\"Adventure, Family, Fantasy\");",
+							"    pm.expect(jsonData.director).to.eql(\"David Yates\");",
+							"    pm.expect(jsonData.posterUrl).to.eql(\"https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWIxLTk0N2UtN2ZlYTdkN2IzNDNlXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/movies/favorites?title=Harry Potter",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"favorites"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Harry Potter"
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "AddSecondMovieToFavourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an object\",function(){",
+							"   pm.expect(jsonData).to.be.an('object');",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Se7en\");",
+							"    pm.expect(jsonData.plot).to.eql(\"Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his motives.\");",
+							"    pm.expect(jsonData.genre).to.eql(\"Crime, Drama, Mystery\");",
+							"    pm.expect(jsonData.director).to.eql(\"David Fincher\");",
+							"    pm.expect(jsonData.posterUrl).to.eql(\"https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjczMi00OTk4LTg3NWUtNmVhMTAzNTNjYjcyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/movies/favorites?title=Se7en",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"favorites"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Se7en"
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "AddSameMovieToFavourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an object\",function(){",
+							"   pm.expect(jsonData).to.be.an('object');",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(jsonData.Response).to.eql(\"False\");",
+							"    pm.expect(jsonData.Error).to.eql(\"Movie Se7en already in favorites\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/movies/favorites?title=Se7en",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"favorites"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Se7en"
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "GetFavourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"pm.test(\"Response has json body\",function(){",
+							"   pm.response.to.have.jsonBody();",
+							"});",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Response is an array\",function(){",
+							"   pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Response should return 1 or more items\", function () {",
+							"    pm.expect(jsonData.length).to.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/movies/favorites",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"favorites"
+					]
+				},
+				"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}

@@ -1,0 +1,8 @@
+package com.maronmateusz.moviemanagmentsystem.Exception;
+
+public class DuplicateMovieException extends Exception {
+
+    public DuplicateMovieException(String message) {
+        super(message);
+    }
+}
